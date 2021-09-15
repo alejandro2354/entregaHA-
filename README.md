@@ -5,3 +5,4 @@ El proyecto se basa en una aplicación de software que permita controlar las ven
 ---
 ## Integrantes
 * Kevin Andres Gallardo Robles - @Kevin2606
+* Luis Miguel Parra Rivillas - @Bortok2k
