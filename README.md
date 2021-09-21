@@ -7,3 +7,4 @@ El proyecto se basa en una aplicación de software que permita controlar las ven
 - Andres Camilo Parra Delgadillo
 - Kevin Andres Gallardo Robles
 - Luis Miguel Parra Rivillas
+-German David Fajardo
