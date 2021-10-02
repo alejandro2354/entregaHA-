@@ -245,4 +245,69 @@ nav #nav-items .nav-item:hover {
   margin: 0;
   padding: 0;
 }
+
+#Search-Bar{
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #004B7F;
+}
+
+ul.Busqueda-Bar li {
+  
+  display: inline;
+  
+}
+
+#Search-Buttom{
+  position: absolute;
+  top: 670px;
+  left: 320px;
+}
+
+#Act-Tt{
+  position: relative;
+  top: 70px;
+  left: 0px;
+}
+
+#Act-Bar{
+  position: relative;
+  top: 60px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #004B7F;
+}
+
+ul.Act-Bar li{
+  display: inline;
+}
+
+#Act-Buttom{
+  position: relative;
+  top: 80px;
+}
+
+#Ventas-act{
+  position: relative;
+  top: 100px;
+}
+
+
+
+#Ventas-activas{
+  position: relative;
+  top: 100px;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #004B7F;
+}
 /*# sourceMappingURL=style.css.map */
