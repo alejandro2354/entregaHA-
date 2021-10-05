@@ -9,3 +9,6 @@ El proyecto se basa en una aplicación de software que permita controlar las ven
 - Luis Miguel Parra Rivillas
 - German David Fajardo
 - Manuel Jose Mejia Vanegas
+
+# Imagen Modulo Ingreso/Registro
+![](login/ModuloLogin.png  "Este es un perro")
