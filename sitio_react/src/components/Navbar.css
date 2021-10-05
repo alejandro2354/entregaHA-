@@ -1,0 +1,36 @@
+nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  position: fixed;
+  top: 10vh;
+
+  background-color: #004B7F;
+  color: #fff;
+
+  height: 90vh;
+  width: 15%;
+}
+  
+#nav-title {
+  margin-top: 10px;
+  font-size: 18px;
+}
+  
+nav #nav-items {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+  
+nav #nav-items .nav-item {
+    padding: 15px 0px;
+    color: #fff;
+    font-size: 14px;
+    transition: transform .2s linear;
+}
+
+.nav-item:hover{
+  transform: translateX(10px);
+}
