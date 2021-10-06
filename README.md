@@ -10,5 +10,22 @@ El proyecto se basa en una aplicación de software que permita controlar las ven
 - German David Fajardo
 - Manuel Jose Mejia Vanegas
 
-# Imagen Modulo Ingreso/Registro
-![](login/ModuloLogin.png  "Este es un perro")
+# Imagenes del proyecto
+**Imagen Modulo Ingreso/Registro**  
+  
+![](img-proyecto/Modulo-Login.png  "")
+
+**Imagen Modulo Gestion de Usuarios**  
+  
+ ![](img-proyecto/Modulo-GestionDeUsuarios.png  "")
+ 
+ **Imagen Modulo Administracion de Ventas**  
+   
+ ![](img-proyecto/Modulo-AdministracionDeVentas1.png  "")
+   
+ 
+ ![](img-proyecto/Modulo-AdministracionDeVentas2.png  "")
+ 
+ **Imagen Modulo Administrador de Productos**  
+   
+ ![](img-proyecto/Modulo-AdministradorDeProductos.png  "")
