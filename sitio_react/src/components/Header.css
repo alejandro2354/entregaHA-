@@ -1,0 +1,43 @@
+header{
+    width: 100%;
+    grid-column: 1/3;
+    background-color: #004B7F;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+}
+
+header a {
+    color: #fff;
+}
+
+#header-brand{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+#header-right{
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+}
+
+#header-user-img{
+    color: #fff;
+    font-size: 30px;
+    margin: 0px 10px;
+}
+
+#header-right-content{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#header-right-content a:first-child{
+    font-size: 14px;
+    font-weight: bold;
+}
