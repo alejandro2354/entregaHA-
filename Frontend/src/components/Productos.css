@@ -1,0 +1,54 @@
+#TituloProductos{
+    color: #004B7F;
+}
+
+#NuevoProducto{
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 5px; 
+}
+
+#buscarID{
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 5px; 
+}
+
+#Boton{
+    padding: 10px;
+    margin: 5px;
+}
+
+#input{
+    padding: 10px;
+    margin: 5px;
+
+}
+
+#interactBar{
+    margin-top: 5px;
+    padding: 5px;
+
+    outline: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#tableUsers{
+    margin-top: 15px;
+    width: 100%;
+}
+
+#tableUsers th{
+    background-color: #C4C4C4;
+    padding: 10px;
+
+    font-size: 14px;
+}
+
+#tableUsers td{
+    padding: 15px;
+    text-align: center;
+
+    font-size: 14px;
+    font-weight: normal;
+}
