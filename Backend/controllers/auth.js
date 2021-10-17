@@ -23,7 +23,7 @@ const validarUsuarioGoogle = async (req, resp = response) => {
                     msg: "Ok estas autorizado",
                     uid: usuario.id,
                     name: usuario.name,
-                    token,
+                    token
                 });
             }
         } else {

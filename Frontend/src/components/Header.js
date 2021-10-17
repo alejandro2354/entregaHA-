@@ -1,7 +1,9 @@
+import useAuth from '../auth/useAuth';
 import './Header.css';
 
 
 function Header() {
+    const auth = useAuth()
     return (
         <header>
             <a href="/Index" id="header_brand"> Mercadolibre changuero</a>
@@ -10,7 +12,7 @@ function Header() {
                     <i className="fas fa-user-circle" id="header_user_img"></i>
                     <div id="header_right_content">
                         <span> Usuario </span>
-                        <a href="/"> Cerrar sesion </a>
+                        <button onClick={auth.logout}>Cerrar sesion</button>
                     </div>
             </div>
         </header>
