@@ -17,7 +17,7 @@ ReactDOM.render(
         <Route path="/Index">
           <Root/>
         </Route>
-        <Route path="/">
+        <Route path="/" exact>
           <Login/>
         </Route>
 
