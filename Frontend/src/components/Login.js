@@ -22,7 +22,7 @@ export const Login = () => {
               })
               if(status === 200){
                 auth.set_Token(data.token)
-                auth.set_User({name: data.name, uid: data.uid})
+                auth.set_User({name: data.name, uid: data.uid, picture: data.picture, rol: data.rol})
               }
               else if(status === 201){
                 notie.alert({text: data.msg, type: "success"})

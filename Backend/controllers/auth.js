@@ -4,8 +4,7 @@ const Rol = require("../models/Rol");
 const { generarJWT } = require("../helpers/jwt");
 
 const validarUsuarioGoogle = async (req, resp = response) => {
-    const { name, email } = req;
-
+    const { name, email, picture } = req;
     try {
         let usuario = await Usuario.findOne({
             email,
@@ -20,14 +19,16 @@ const validarUsuarioGoogle = async (req, resp = response) => {
                 const token = await generarJWT(usuario.id, usuario.name);
                 resp.json({
                     ok: true,
-                    msg: "Ok estas autorizado",
+                    msg: "Estas autorizado",
                     uid: usuario.id,
                     name: usuario.name,
+                    picture: usuario.picture,
+                    rol: usuario.rol.name,
                     token
                 });
             }
         } else {
-            usuario = new Usuario({ name, email });
+            usuario = new Usuario({ name, email, picture});
             const newUsuario = await usuario.save();
             resp.status(201).json({
                 ok: true,

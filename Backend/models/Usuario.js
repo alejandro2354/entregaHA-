@@ -16,7 +16,9 @@ const UsuarioSchema = Schema({
         type: String,
         //required: true,
     },
-
+    picture: {
+        type: String
+    },
     rol: {
         type: Schema.Types.ObjectId,
         ref: "Rol",

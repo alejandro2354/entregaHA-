@@ -25,10 +25,11 @@ const validarGoogleAuth = (req, res = response, next) => {
                 "517368753938-8cagsbpid6ugvnlm1dcqljgjto4quj2g.apps.googleusercontent.com",
         })
         .then((response) => {
-            const {sub, name, email} = response.payload;
-            req.uid = sub;
+            const {sub, name, email, picture} = response.payload;
+            req.uid = sub
             req.name = name
             req.email = email
+            req.picture = picture
             next()
         }).catch ((err) => {
             console.log(err)
