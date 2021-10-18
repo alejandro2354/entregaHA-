@@ -21,7 +21,7 @@ router.post(
         check('producto','el nombre del producto es obligatorio').not().isEmpty(),
         check('Valor', 'el precio de la venta es obligatorio').not().isEmpty(),
         check('id_cliente', 'la identificacion del cliente es obligatorio').not().isEmpty(),
-        check('Nombre_Cliente', 'el nombre del cliente es obligatorio').not().isEmpty(),
+        check('Nombre_cliente', 'el nombre del cliente es obligatorio').not().isEmpty(),
         check('Estado','El estado inicial de la venta es obligatorio').not().isEmpty(),
         validarCampos
     ], 
@@ -34,7 +34,7 @@ router.post(
         check('producto','el nombre del producto es obligatorio').not().isEmpty(),
         check('Valor', 'el precio de la venta es obligatorio').not().isEmpty(),
         check('id_cliente', 'la identificacion del cliente es obligatorio').not().isEmpty(),
-        check('Nombre_Cliente', 'el nombre del cliente es obligatorio').not().isEmpty(),
+        check('Nombre_cliente', 'el nombre del cliente es obligatorio').not().isEmpty(),
         check('Estado','El estado inicial de la venta es obligatorio').not().isEmpty(),
         validarCampos
     ], 

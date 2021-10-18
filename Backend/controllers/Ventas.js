@@ -3,12 +3,12 @@ const { findByIdAndUpdate, findById, findOne } = require('mongoose');
 const Ventas = require('../models/Ventas');
 
 const getVentas = async (req, resp = response) => {
-    const Ventas = await Ventas.find()
+    const LVentas = await Ventas.find()
 
     resp.status(200).json({
         ok:true,
         msg: 'Lista de Ventas',
-        Ventas
+        LVentas
     });
 }
 
@@ -71,13 +71,17 @@ const ActualizarVenta = async(req,resp = response) => {
 
     const VentId = req.body.id;
 
+    console.log(Ventas);
+    console.log(req.body);
+
+
     try{
-        const Venta = await Venta.findOne({'id': VentId});
+        const Venta = await Ventas.findOne({'id': VentId});
 
         if(!Venta){
             crearVenta(req,resp)
         }else{
-            const VentaGuardada = Ventas.findByIdAndUpdate(Venta.id, req.body, {new:true});
+            const VentaGuardada = await Ventas.findByIdAndUpdate(Venta._id, req.body, {new:true});
 
             resp.json({
                 ok: true,
