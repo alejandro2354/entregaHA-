@@ -11,32 +11,32 @@ import useAuth from "../auth/useAuth";
 export const Login = () => {
     const auth = useAuth()
     const respuestaGoogle = async (resp) => {
-        console.log(resp)
-        try {
-            const {status, data} = await axios({
-                method:"POST",
-                url: `http://localhost:4000/api/auth/google/login`,
-                headers: {
-                  "Authorization": `Bearer ${resp.tokenId}`
+        if(!resp.error){
+            try {
+                const {status, data} = await axios({
+                    method:"POST",
+                    url: `http://localhost:4000/api/auth/google/login`,
+                    headers: {
+                      "Authorization": `Bearer ${resp.tokenId}`
+                    }
+                  })
+                  if(status === 200){
+                    auth.set_Token(data.token)
+                    auth.set_User({name: data.name, uid: data.uid, picture: data.picture, rol: data.rol})
+                  }
+                  else if(status === 201){
+                    notie.alert({text: data.msg, type: "success"})
+                  }
+            } catch (error) {
+                if(error.response.status === 401){
+                    notie.alert({text: error.response.data.msg, type: "warning", time: 8})
+                }else{
+                    notie.alert({text: error.response.data.msg, type: "error", time: 8})
                 }
-              })
-              if(status === 200){
-                auth.set_Token(data.token)
-                auth.set_User({name: data.name, uid: data.uid, picture: data.picture, rol: data.rol})
-              }
-              else if(status === 201){
-                notie.alert({text: data.msg, type: "success"})
-              }
-        } catch (error) {
-            if(error.response.status === 401){
-                notie.alert({text: error.response.data.msg, type: "warning", time: 8})
-            }else{
-                notie.alert({text: error.response.data.msg, type: "error", time: 8})
+                console.log(error.toJSON())
+                console.log(error.response.data)
             }
-            console.log(error.toJSON())
-            console.log(error.response.data)
         }
-
     };
 
     return (
