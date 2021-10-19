@@ -21,6 +21,7 @@ router.post(
         check('id', 'El nombre del producto es obligatorio').not().isEmpty(),
         check('descripcion', 'El codigo de barras del producto es obligatorio').not().isEmpty(),
         check('valorUnit', 'La categoria del producto es obligatoria').not().isEmpty(),
+        check('estado', 'El estado del producto es obligatorio').not().isEmpty(),
         validarCampos
     ],
     crearProducto);
@@ -31,6 +32,7 @@ router.post(
         check('id', 'El nombre del producto es obligatorio').not().isEmpty(),
         check('descripcion', 'El codigo de barras del producto es obligatorio').not().isEmpty(),
         check('valorUnit', 'La categoria del producto es obligatoria').not().isEmpty(),
+        check('estado', 'El estado del producto es obligatorio').not().isEmpty(),
         validarCampos
     ],
     actualizarProducto);

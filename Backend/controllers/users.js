@@ -1,6 +1,6 @@
 const { response } = require('express');
-const { findByIdAndUpdate, findById } = require('../models/User');
-const Users = require('../models/User')
+const { findByIdAndUpdate, findById } = require('../models/Usuario');
+const Users = require('../models/Usuario')
 
 
 const getUsers = async (req, res = response) => {
