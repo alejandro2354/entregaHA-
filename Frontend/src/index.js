@@ -1,28 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import AuthProvider from './auth/AuthProvider';
 import './index.css';
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import { Login } from './components/Login';
-import Root from './Root';
+import AppRouter from './routers/AppRouter';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <AuthProvider> 
+      <AppRouter />
+    </AuthProvider>
+    {/* <Router>
       <Switch>
         <Route path="/Index">
           <Root/>
         </Route>
-        <Route path="/">
+        <Route path="/" exact>
           <Login/>
         </Route>
 
       </Switch>
-    </Router>
+    </Router> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

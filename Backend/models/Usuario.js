@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const UserSchema = Schema({
+const UsuarioSchema = Schema({
     name: {
         type: String,
         required: true
@@ -14,14 +14,20 @@ const UserSchema = Schema({
 
     status: {
         type: String,
-        required: true,
+        //required: true,
     },
-
+    picture: {
+        type: String
+    },
     rol: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Rol",
+        default: "616b32ec68f3da2297d04ab8",
         required: true,
     }
 
-}, );
+},{
+    collection: "usuarios"
+});
 
-module.exports = model('User', UserSchema);
+module.exports = model('Usuario', UsuarioSchema);

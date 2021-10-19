@@ -1,82 +1,47 @@
-import React, { Fragment } from 'react'
-import './Productos.css';
+import React, { useState,  Fragment} from 'react'
+import './Productos.css'
+import AddProductos from './AddProductos'
+import ProductList from './ProductList'
 
 function Productos() {
+
+    const [nameOrId, setNameOrId] = useState("")
+
+    const filtrar = e => {
+        e.preventDefault()
+    }
+
+    const [productos, setProductos] = useState([])
+    
+    const handleAddProductos = productoRegistrado => {
+        setProductos([...productos, productoRegistrado])
+        console.log(productos)
+    };
+
     return (
         <Fragment>
-            <div id="TituloProductos">Productos</div>
+            <h2 id="section_title"> Gestion de productos </h2>
             <div id="interactBar">
-                <form>
+                <form onSubmit={filtrar}>
                     <div id="buscarID">
                         <input type="text"
-                            id = "input"
+                            id="input"
                             className="inputBuscarId"
-                            value={'ID Producto'}
+                            placeholder="Nombre o ID Producto"
+                            value={nameOrId}
+                            onChange={e => setNameOrId(e.target.value)}
                         />
-                        <button className="botonBuscar"
-                        id="Boton">Buscar</button>
+                        <button 
+                            id="Boton">Buscar</button>
                     </div>
                 </form>
-                <form>
-                    <div id="NuevoProducto">
-                        <input type="text"
-                            id = "input"
-                            className="InputId"
-                            value={'Identficador'}
-                        />
-                        <input type="text"
-                            id = "input"
-                            className="entradaTest"
-                            value={'Descripción'}
-                        />
-                        <input type="text"
-                            id = "input"
-                            className="entradaTest"
-                            value={'Valor unitario'}
-                        />
-                        <select className="EstadoP"
-                        id = "input">
-                            <option value="Disponible"> Disponible </option>
-                            <option value="NoDisponible"> No Disponible </option>
-                        </select>
-                        <button id="Boton">
-                            Guardar producto
-                        </button>
-                    </div>
-                </form>
+                <AddProductos handleAddProductos={handleAddProductos}/>
             </div>
-            <table id="tableUsers">
-                <tr>
-                    <th> Identficador </th>
-                    <th> Descripcion </th>
-                    <th> Valor unitario </th>
-                    <th> Estado </th>
-                    <th> Acciones </th>
-                </tr>
-                <tr>
-                    <td> 123456679 </td>
-                    <td> Panela </td>
-                    <td> 10 $ </td>
-                    <td> Disponible </td>
-                    <td> <button class="actions">Editar</button>  </td>
-                </tr>
-                <tr>
-                    <td> 123456679 </td>
-                    <td> Panela </td>
-                    <td> 10 $ </td>
-                    <td> Disponible </td>
-                    <td> <button class="actions">Editar</button>  </td>
-                </tr>
-                <tr>
-                    <td> 123456679 </td>
-                    <td> Panela </td>
-                    <td> 10 $ </td>
-                    <td> Disponible </td>
-                    <td> <button class="actions">Editar</button>  </td>
-                </tr>
-            </table>
+            <ProductList productos={productos}/>
         </Fragment>
     )
 }
+
+
 
 export default Productos

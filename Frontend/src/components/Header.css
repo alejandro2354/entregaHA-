@@ -8,20 +8,15 @@ header{
     align-items: center;
     padding: 0px 15px;
 }
-
-header a {
-    color: #fff;
-}
-
 #header_brand{
-    font-size: 18px;
+    color: white;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 #header_right{
     display: flex;
     flex-direction: row;
-
     align-items: center;
 }
 
@@ -42,3 +37,46 @@ header a {
     font-weight: bold;
     color: #fff;
 }
+.userDatos{
+    color: #fff;
+    margin: 0 10px;
+}
+.datos {
+    padding: 0.5rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+.userPicture{
+    color: #fff;
+    font-size: 30px;
+    margin: 0px 10px;
+    border-radius: 100%;
+    height: 5rem;
+    border: 0.4rem dashed white;
+    border-style: dashed solid;
+}
+.btn-CerrarSesion {
+    font-size: 1.2rem;
+    border: none;
+    padding: 2px 5px;
+    background-color: #f4f4f4;
+    border-radius: 0.5rem;
+}
+.btn-CerrarSesion:hover{
+    cursor: pointer;
+    background-color: #ddd;
+}
+.a-Inicio {
+    color: black;
+    font-size: 1.2rem;
+    padding: 2px 5px;
+    background-color: #f4f4f4;
+    margin-bottom: 10px;
+    border-radius: 0.5rem;
+    text-decoration: none;
+}
+.a-Inicio:hover {
+    background-color: #ddd;
+}
+
