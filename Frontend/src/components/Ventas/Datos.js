@@ -8,7 +8,7 @@ function Datos() {
             <td> $2000 </td>
             <td> 12345 </td>
             <td> perensejo </td>
-            <td> <button class="actions">Editar</button></td>
+            <td> <button className="actions">Editar</button></td>
         </tr>
         
     )
