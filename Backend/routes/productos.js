@@ -4,15 +4,16 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const router = Router();
 
 const { getProductos, crearProducto, actualizarProducto, buscarProducto} = require('../controllers/productos');
+const { validarJwt } = require('../middlewares/validar-jwt');
 
-router.get('/listarProductos', getProductos)
+router.get('/listarProductos', validarJwt, getProductos)
 
 router.post(
     '/buscarProducto', 
     [
         check('id', 'El nombre del producto es obligatorio').not().isEmpty(),
         validarCampos
-    ],
+    ],validarJwt,
     buscarProducto);
 
 router.post(
@@ -23,7 +24,7 @@ router.post(
         check('valorUnit', 'La categoria del producto es obligatoria').not().isEmpty(),
         check('estado', 'El estado del producto es obligatorio').not().isEmpty(),
         validarCampos
-    ],
+    ], validarJwt,
     crearProducto);
 
 router.post(
@@ -34,7 +35,7 @@ router.post(
         check('valorUnit', 'La categoria del producto es obligatoria').not().isEmpty(),
         check('estado', 'El estado del producto es obligatorio').not().isEmpty(),
         validarCampos
-    ],
+    ], validarJwt,
     actualizarProducto);
 
     module.exports = router;

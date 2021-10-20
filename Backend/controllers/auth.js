@@ -7,7 +7,7 @@ const validarUsuarioGoogle = async (req, resp = response) => {
     const { name, email, picture } = req;
     try {
         let usuario = await Usuario.findOne({
-            email,
+            email
         }).populate("rol");
         if (usuario) {
             if (usuario.rol.name === "Indefinido") {
@@ -44,6 +44,18 @@ const validarUsuarioGoogle = async (req, resp = response) => {
     }); */
 };
 
+
+const revalidarToken = async(req,res = response) =>{
+
+    const {uid, name} = req;
+
+    resp.json({
+        ok: true,
+        token
+    })
+
+}
 module.exports = {
     validarUsuarioGoogle,
+    revalidarToken
 };

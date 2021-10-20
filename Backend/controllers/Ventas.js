@@ -1,12 +1,14 @@
 const { response } = require('express');
-const { findByIdAndUpdate, findById, findOne } = require('mongoose');
 const Ventas = require('../models/Ventas');
 
 const getVentas = async (req, resp = response) => {
     const LVentas = await Ventas.find()
+        .populate('producto', 'descripcion')
+        .populate('id_vendedor', 'name')
+        .populate('Estado','name')
 
     resp.status(200).json({
-        ok:true,
+        ok: true,
         msg: 'Lista de Ventas',
         LVentas
     });
@@ -16,16 +18,16 @@ const BuscarVenta = async (req, resp = response) => {
 
     const VentId = req.body.id;
 
-    try{
-        const Venta = await Ventas.findOne({'id': VentId})
+    try {
+        const Venta = await Ventas.findOne({ 'id': VentId })
 
-        if(!Venta){
+        if (!Venta) {
             resp.status(404).json({
-                ok:false,
+                ok: false,
                 msg: 'la venta con el id especificado no existe',
 
             });
-        }else{
+        } else {
             resp.status(202).json({
                 ok: true,
                 msg: 'Lista de Ventas',
@@ -50,14 +52,14 @@ const crearVenta = async (req, resp = response) => {
     console.log(Venta);
     console.log(req.body);
 
-    try{
+    try {
         const SaleSave = await Venta.save();
         resp.status(201).json({
-           ok:true,
-           msg: 'Venta creada con exito',
-           SaleSave
+            ok: true,
+            msg: 'Venta creada con exito',
+            SaleSave
         });
-    }catch (error) {
+    } catch (error) {
         console.log(error);
         resp.status(500).json({
             ok: false,
@@ -67,7 +69,7 @@ const crearVenta = async (req, resp = response) => {
 
 }
 
-const ActualizarVenta = async(req,resp = response) => {
+const ActualizarVenta = async (req, resp = response) => {
 
     const VentId = req.body.id;
 
@@ -75,13 +77,13 @@ const ActualizarVenta = async(req,resp = response) => {
     console.log(req.body);
 
 
-    try{
-        const Venta = await Ventas.findOne({'id': VentId});
+    try {
+        const Venta = await Ventas.findOne({ 'id': VentId });
 
-        if(!Venta){
-            crearVenta(req,resp)
-        }else{
-            const VentaGuardada = await Ventas.findByIdAndUpdate(Venta._id, req.body, {new:true});
+        if (!Venta) {
+            crearVenta(req, resp)
+        } else {
+            const VentaGuardada = await Ventas.findByIdAndUpdate(Venta._id, req.body, { new: true });
 
             resp.json({
                 ok: true,
@@ -89,7 +91,7 @@ const ActualizarVenta = async(req,resp = response) => {
                 usuario: VentaGuardada
             });
         }
-    }catch(error){
+    } catch (error) {
         console.log(error);
         resp.status(500).json({
             ok: false,
