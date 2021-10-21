@@ -4,7 +4,7 @@ const { findByIdAndUpdate, findById, findOne } = require('mongoose');
 
 const getProductos = async (req, resp = response) => {
 
-    const productos = await Producto.find()
+    const productos = await Producto.find();
 
     resp.status(200).json({
         ok: true,
