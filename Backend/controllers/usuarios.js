@@ -1,16 +1,25 @@
 const { response } = require('express');
-const { findByIdAndUpdate, findById } = require('../models/Usuario');
 const Users = require('../models/Usuario')
+const Roles = require('../models/Rol');
 
 
 const getUsers = async (req, res = response) => {
 
-    const users = await Users.find()
+    const users = await Users.find().populate('rol', 'name')
 
     res.status(200).json({
         ok: true,
-        msg: 'Lista de Usuarios',
+        msg: 'Lista de Usuariossss',
         users
+    });
+}
+
+const getRoles = async (req, res = response) => {
+    const roles = await Roles.find()
+    res.status(200).json({
+        ok: true,
+        msg: 'Lista de roles',
+        roles
     });
 }
 
@@ -19,7 +28,6 @@ const updateUsers = async (req, res = response) => {
     const userId = req.params.id;
     try {
         const user = await Users.findById(userId);
-
         console.log(user);
         console.log(req.body);
 
@@ -32,7 +40,7 @@ const updateUsers = async (req, res = response) => {
 
         const userUpdated = await Users.findByIdAndUpdate(userId, req.body, { new: true });
 
-        res.json({
+        res.status(200).json({
             ok: true,
             msg: 'Usuario actualizado de manera exitosa',
             usuario: userUpdated
@@ -42,7 +50,7 @@ const updateUsers = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'error al actualizar el producto',
+            msg: 'error al actualizar',
         });
     }
 }
@@ -50,5 +58,6 @@ const updateUsers = async (req, res = response) => {
 
 module.exports = {
     getUsers,
-    updateUsers
+    updateUsers,
+    getRoles
 }
