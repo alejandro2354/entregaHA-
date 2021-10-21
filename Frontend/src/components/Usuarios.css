@@ -49,3 +49,9 @@ padding: 10px
     box-sizing: content-box;
     text-indent: 5px;
 }
+
+
+table img{
+    width: 50px;
+    border-radius: 100%;
+}

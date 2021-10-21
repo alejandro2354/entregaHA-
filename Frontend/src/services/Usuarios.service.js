@@ -1,5 +1,5 @@
 import axios from 'axios';
-const listarUsuarios = (token) => {    
+const listarUsuarios = (token) => {
     try {
         return axios({
             method: 'GET',
@@ -13,7 +13,7 @@ const listarUsuarios = (token) => {
     }
 }
 
-const obtenerRoles = (token) => {    
+const obtenerRoles = (token) => {
     try {
         return axios({
             method: 'GET',
@@ -27,23 +27,24 @@ const obtenerRoles = (token) => {
     }
 }
 
-const actualizarUsuarios = (token, id, rol) => {    
-
-    try {
-        return axios({
-            method: 'PUT',
-            url: `http://localhost:4000/api/usuarios/:${id}`,
-            headers: {
-                'x-token': `${token}`
-            },
-            data:{
-                rol: `${rol}`
-            }
-        });
-    } catch (error) {
-        throw error.status;
+const actualizarUsuarios = (token, id, rol) => {
+    if (rol) {
+        try {
+            return axios({
+                method: 'PUT',
+                url: `http://localhost:4000/api/usuarios/${id}`,
+                headers: {
+                    'x-token': `${token}`
+                },
+                data: {
+                    rol: `${rol}`
+                }
+            });
+        } catch (error) {
+            throw error.status;
+        }
     }
 }
 
-export {listarUsuarios, actualizarUsuarios, obtenerRoles};
+export { listarUsuarios, actualizarUsuarios, obtenerRoles };
 
