@@ -1,22 +1,32 @@
 import React, { useEffect, useState } from "react";
 import useAuth from '../../auth/useAuth';
-import {listarUsuarios, actualizarUsuarios, obtenerRoles} from '../../services/Usuarios.service';
+import { listarUsuarios, actualizarUsuarios, obtenerRoles } from '../../services/Usuarios.service';
 import notie from 'notie';
 
 const Tabla_Usuarios = () => {
 
     const auth = useAuth();
+
     const [usuarios, setUsuarios] = useState([]);
+
     const [roles, setRoles] = useState([]);
 
-    const getUsuarios = async () => {
+    const getRoles = async () => {
         try {
-            const { info } = await obtenerRoles(auth.token);
+            const { data } = await obtenerRoles(auth.token);
+            console.log(data)
+            setRoles(data.roles);
+        } catch (error) {
+
+        }
+    }
+
+    const getUsuarios = async () => {
+        getRoles();
+        try {
             const { data } = await listarUsuarios(auth.token);
-            console.log(data);
-            console.log(info)
+            console.log(data)
             setUsuarios(data.users);
-            // setRoles(data2.name);
 
         } catch ({ response: error }) {
             console.log(error);
@@ -33,10 +43,13 @@ const Tabla_Usuarios = () => {
 
     }
 
-    const updateUsuarios = async (id, rol) =>{
+    const updateUsuarios = async (id, rol) => {
         try {
-            const { data } = await actualizarUsuarios(auth.token, id, rol);
+            const { status, data } = await actualizarUsuarios(auth.token, id, rol);
             console.log(data);
+            if (status === 200) {
+                notie.alert({ text: data.msg, type: "success" })
+            }
         } catch ({ response: error }) {
             console.log(error);
         }
@@ -46,45 +59,48 @@ const Tabla_Usuarios = () => {
         getUsuarios();
     }, []);
 
+    const pruebas = []
+
     return (
         <table id="search_table">
             <thead>
                 <tr>
+                    <th> Foto </th>
                     <th> Nombre del usuario </th>
+                    <th> Correo </th>
                     <th> Rol </th>
-                    <th> Estado </th>
+                    {/* <th> Estado </th> */}
                     <th> Accion </th>
                 </tr>
             </thead>
             <tbody>
                 {
                     usuarios.map((usuario, index) => (
+
                         <tr key={usuario._id}>
+                            <td> <img alt="Imagen de usuario" src={usuario.picture}></img></td>
                             <td> {usuario.name}</td>
-                            <td> {Rol_Usuarios(usuario.rol.name)} </td>
-                            <td> {Estado_Usuarios()} </td>
-                            <td> <button className="button" onClick={(event) =>{ updateUsuarios(usuario._id, usuario.rol._id)}}> Actualizar </button> </td>
+                            <td> {usuario.email}</td>
+                            <td>
+
+                                <select className="lists" defaultValue={usuario.rol._id} id={usuario._id} onChange={(e) => { const selected = e.target.value; pruebas[index] = selected }}>
+                                    {
+                                        roles.map((rol) => (
+                                            <option value={rol._id} key={rol._id}> {rol.name} </option>
+                                        ))
+                                    }
+                                </select>
+                            </td>
+                            {/* <td> {Estado_Usuarios()} </td> */}
+                            <td> <button className="button" onClick={(event) => updateUsuarios(usuario._id, pruebas[index])}> Actualizar </button> </td>
                         </tr>
                     )
                     )
+
                 }
             </tbody>
         </table>
     );
-}
-
-const Rol_Usuarios = (op) => {
-    let value = 'Ninguno';
-    if (op == "Administrador") value = "Administrador";
-    if (op == "Vendedor") value = "Vendedor";
-
-    return (
-        <select className="lists" defaultValue={value}> 
-            <option value="Ninguno"> Ninguno </option>
-            <option value="Administrador"> Administrador </option>
-            <option value="Vendedor"> Vendedor </option>
-        </select>
-    )
 }
 
 const Estado_Usuarios = () => {
