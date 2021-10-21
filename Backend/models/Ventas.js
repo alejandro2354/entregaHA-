@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const Estado = require ('./Estado')
 
 const VentasSchema = Schema(
     {
@@ -7,22 +8,29 @@ const VentasSchema = Schema(
             required: true
         },
         producto: {
-            type: String,
-            required: true
+            type: Schema.Types.ObjectId,
+            ref: "Producto",
+            required: true,
         },
         Valor: {
             type: String,
+            required: true
+        },
+        id_vendedor: {
+            type: Schema.Types.ObjectId,
+            ref: "Usuario",
             required: true
         },
         id_cliente: {
             type: String,
             required: true
         },
-        Nombre_cliente: {
-            type: String,
+        Estado: {
+            type: Schema.Types.ObjectId,
+            ref: "Estado",
             required: true
         },
-        Estado: {
+        Nombre_cliente: {
             type: String,
             required: true
         }
