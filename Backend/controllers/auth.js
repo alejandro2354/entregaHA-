@@ -1,6 +1,5 @@
 const { response } = require("express");
 const Usuario = require("../models/Usuario");
-const Rol = require("../models/Rol");
 const { generarJWT } = require("../helpers/jwt");
 
 const validarUsuarioGoogle = async (req, resp = response) => {
@@ -8,14 +7,14 @@ const validarUsuarioGoogle = async (req, resp = response) => {
     try {
         let usuario = await Usuario.findOne({
             email
-        }).populate("rol");
+        }).populate("rol").populate("status");
         if (usuario) {
-            if (usuario.rol.name === "Indefinido") {
+            if (usuario.status.name === "No autorizado" || usuario.status.name === "Pendiente") {
                 resp.status(401).json({
                     ok: false,
                     msg: "El usuario aun no ha sido autorizado por el administrador",
                 });
-            } else {
+            } else {    
                 const token = await generarJWT(usuario.id, usuario.name);
                 resp.json({
                     ok: true,
@@ -24,6 +23,7 @@ const validarUsuarioGoogle = async (req, resp = response) => {
                     name: usuario.name,
                     picture: usuario.picture,
                     rol: usuario.rol.name,
+                    status: usuario.status.name,
                     token
                 });
             }
@@ -36,6 +36,7 @@ const validarUsuarioGoogle = async (req, resp = response) => {
             });
         }
     } catch (error) {
+        console.log("esta parte");
         console.log(error)
     }
 /*     resp.json({

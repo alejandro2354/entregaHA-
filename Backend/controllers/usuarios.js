@@ -1,6 +1,7 @@
 const { response } = require('express');
 const Users = require('../models/Usuario')
 const Roles = require('../models/Rol');
+const Estados = require('../models/EstadoU')
 
 
 const getUsers = async (req, res = response) => {
@@ -22,6 +23,16 @@ const getRoles = async (req, res = response) => {
         roles
     });
 }
+
+const getEstados = async (req, res = response) => {
+    const estados = await Estados.find()
+    res.status(200).json({
+        ok: true,
+        msg: 'Lista de estados',
+        estados
+    });
+}
+
 
 const updateUsers = async (req, res = response) => {
 
@@ -59,5 +70,6 @@ const updateUsers = async (req, res = response) => {
 module.exports = {
     getUsers,
     updateUsers,
-    getRoles
+    getRoles,
+    getEstados
 }
