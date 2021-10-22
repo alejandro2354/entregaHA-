@@ -67,6 +67,7 @@ function Productos() {
             setInID(getProducto._id)
             setInDescription(getProducto.descripcion)
             setInUnitValue(getProducto.valorUnit)
+            document.getElementById("selectEstado").value = getProducto.estado
             setEstadoValue(getProducto.estado)
         }
     }
@@ -173,7 +174,7 @@ function Productos() {
                             value={inUnitValue}
                             onChange={(e) => setInUnitValue(e.target.value)}
                         />
-                        <select className="EstadoP" id="input" defaultValue={estadoValue} onChange={(e) => setEstadoValue(e.target.value)}>
+                        <select className="EstadoP" id="selectEstado" defaultValue={estadoValue} onChange={(e) => setEstadoValue(e.target.value)}>
                             <option value = {true}
                             >
                                 {" "}
