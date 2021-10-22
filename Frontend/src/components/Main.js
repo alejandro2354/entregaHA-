@@ -2,7 +2,7 @@ import React from 'react'
 import Usuarios from './Usuarios'
 import './Main.css'
 import Productos from './Productos';
-import Ventas from './Ventas/Pagina';
+import Ventas from './Ventas';
 
 const Main = (props) => {
     switch (props.component) {
