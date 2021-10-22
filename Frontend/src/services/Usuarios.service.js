@@ -27,24 +27,38 @@ const obtenerRoles = (token) => {
     }
 }
 
-const actualizarUsuarios = (token, id, rol) => {
-    if (rol) {
-        try {
-            return axios({
-                method: 'PUT',
-                url: `http://localhost:4000/api/usuarios/${id}`,
-                headers: {
-                    'x-token': `${token}`
-                },
-                data: {
-                    rol: `${rol}`
-                }
-            });
-        } catch (error) {
-            throw error.status;
-        }
+const obtenerEstados = (token) => {
+    try {
+        return axios({
+            method: 'GET',
+            url: 'http://localhost:4000/api/usuarios/estados',
+            headers: {
+                'x-token': `${token}`
+            }
+        });
+    } catch (error) {
+        throw error.status;
     }
 }
 
-export { listarUsuarios, actualizarUsuarios, obtenerRoles };
+
+const actualizarUsuarios = (token, id, rol, status) => {
+    try {
+        return axios({
+            method: 'PUT',
+            url: `http://localhost:4000/api/usuarios/${id}`,
+            headers: {
+                'x-token': `${token}`
+            },
+            data: {
+                rol: `${rol}`,
+                status: `${status}`
+            }
+        });
+    } catch (error) {
+        throw error.status;
+    }
+}
+
+export { listarUsuarios, actualizarUsuarios, obtenerRoles, obtenerEstados };
 
