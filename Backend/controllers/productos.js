@@ -15,21 +15,21 @@ const getProductos = async (req, resp = response) => {
 
 const buscarProducto = async (req, res = response) => {
 
-    const prodId = req.body.id;
+    const prodName = req.body.descripcion;
 
     try {
 
-        const producto = await Producto.findOne({ 'id': prodId })
+        const producto = await Producto.findOne({ 'descripcion': prodName })
 
         if (!producto) {
             res.status(404).json({
                 ok: false,
-                msg: 'No existe un producto con el id indicado',
+                msg: 'La descripcion no coincide con ningun producto existente',
             });
         }else{
             res.status(202).json({
                 ok: true,
-                msg: 'Lista de Productos',
+                msg: 'Producto',
                 producto
             });
         }
@@ -38,17 +38,18 @@ const buscarProducto = async (req, res = response) => {
         console.log(error);
         res.status(500).json({
             ok: false,
-            msg: 'error al actualizar el producto',
+            msg: 'error al buscar producto',
         });
     }
 }
 
 const crearProducto = async (req, res = response) => {
-
-    const producto = new Producto(req.body);
+    const infoNuevoProd = {descripcion: req.body.descripcion, 
+        valorUnit: req.body.valorUnit, 
+        estado: req.body.estado }
+    const producto = new Producto(infoNuevoProd);
 
     console.log(producto);
-    console.log(req.body);
 
     try {
         const productSave = await producto.save();
@@ -69,25 +70,29 @@ const crearProducto = async (req, res = response) => {
 
 const actualizarProducto = async (req, res = response) => {
 
-
-    const prodId = req.body.id;
+    const ProdID = req.body._id;
+    console.log(ProdID);
     try {
-        const producto = await Producto.findOne({ 'id': prodId });
+        if(ProdID !== ""){
+            const producto = await Producto.findById(ProdID);
+
+            if (!producto) {
+                crearProducto(req, res)
+            } else {
+                const productoGuardado = await Producto.findByIdAndUpdate(producto._id, req.body, { new: true });
+    
+                res.json({
+                    ok: true,
+                    msg: 'Usuario actualizado de manera exitosa',
+                    productoGuardado
+                });
+            }
+        }else{
+            crearProducto(req, res)
+        }
 
         //console.log(producto);
         // console.log(req.body);
-
-        if (!producto) {
-            crearProducto(req, res)
-        } else {
-            const productoGuardado = await Producto.findByIdAndUpdate(producto._id, req.body, { new: true });
-
-            res.json({
-                ok: true,
-                msg: 'Usuario actualizado de manera exitosa',
-                usuario: productoGuardado
-            });
-        }
 
     } catch (error) {
         console.log(error);
