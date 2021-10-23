@@ -1,0 +1,34 @@
+/* .container {
+} */
+.container-titulo {
+    text-align: center;
+}
+.container-span-bienvenido {
+    font-size: 3rem;
+}
+.container-span-nombre {
+    color: #004b7f;
+    font-size: 4rem;
+}
+.container-imagenes {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+.imagen-logo {
+    height: 300px;
+}
+.container-otrasImagen{
+    margin-top: 6rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    /* border: 1px solid black; */
+}
+.container-otrasImagen img{
+    display: block;
+    height: 150px;
+}
