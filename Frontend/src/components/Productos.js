@@ -102,7 +102,11 @@ function Productos() {
                 }
             }
         } catch (error) {
-            console.log(error)
+            if (error.response.status === 400) {
+                notie.alert({ text: "No ha sido posible guardar el producto", type: "warning", time: 8 })
+            }else{
+                console.log(error);
+            }
         }
         setInID("")
         setInDescription("")
