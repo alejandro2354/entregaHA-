@@ -5,7 +5,6 @@ import "./Productos.css";
 import notie from "notie"
 
 
-
 function Productos() {
     const auth = useAuth();
     const [nameOrId, setNameOrId] = useState("");
@@ -26,11 +25,10 @@ function Productos() {
                 },
             });
             getProductos = data.productos;
+            setProductos([...getProductos]);
         } catch (error) {
             console.log(error);
         }
-        setProductos([...getProductos]);
-
     };
 
     useEffect(() => {
@@ -48,7 +46,7 @@ function Productos() {
                     "x-token": `${auth.token}`,
                 },
                 data: {
-                    descripcion: `${nameOrId}`
+                    NombreOID: `${nameOrId}`,
                 }
             })
             if (status === 202) {
@@ -64,7 +62,7 @@ function Productos() {
         }
         if (getProducto != null) {
 
-            setInID(getProducto._id)
+            setInID(getProducto.id)
             setInDescription(getProducto.descripcion)
             setInUnitValue(getProducto.valorUnit)
             document.getElementById("selectEstado").value = getProducto.estado
@@ -91,15 +89,17 @@ function Productos() {
                     "x-token": `${auth.token}`
                 },
                 data: {
-                    _id: inID,
+                    id: `${inID}`,
                     descripcion: `${inDescription}`,
-                    valorUnit: `${inUnitValue}`,
+                    valorUnit: parseInt(inUnitValue),
                     estado: `${estadoValue}`
                 }
 
             })
             if (status === 201) {
                 notie.alert({ text: data.msg, type: "success" })
+                if (inID !== ""){                 
+                }
             }
         } catch (error) {
             console.log(error)
@@ -118,8 +118,8 @@ function Productos() {
     }
 
     const list = productos.map((item) => (
-        <tr key={item._id}>
-            <td> {item._id} </td>
+        <tr key={item.id}>
+            <td> {item.id} </td>
             <td> {item.descripcion} </td>
             <td> {item.valorUnit} </td>
             <td> {item.estado === true ? "Disponible" : "No Disponible"} </td>
@@ -141,7 +141,7 @@ function Productos() {
                             type="text"
                             id="input"
                             className="inputBuscarId"
-                            placeholder="Descricion"
+                            placeholder="Descricion o ID"
                             value={nameOrId}
                             onChange={(e) => setNameOrId(e.target.value)}
                         />
@@ -151,7 +151,7 @@ function Productos() {
                 <form >
                     <div id="NuevoProducto">
                         <input
-                            type="text"
+                            type="number"
                             id="input"
                             className="InputId"
                             placeholder="Identficador"

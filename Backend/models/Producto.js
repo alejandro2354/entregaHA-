@@ -1,13 +1,16 @@
 const { Schema, model } = require('mongoose')
 
 const ProductoSchema = Schema({
-
+    id: {
+        type: Number,
+        required: true
+    },
     descripcion: {
         type: String,
         required: true
     },
     valorUnit: {
-        type: String,
+        type: Number,
         required: true
     },
     estado: {

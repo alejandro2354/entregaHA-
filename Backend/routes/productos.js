@@ -9,11 +9,7 @@ const { validarJwt } = require('../middlewares/validar-jwt');
 router.get('/listarProductos', validarJwt, getProductos)
 
 router.post(
-    '/buscarProducto', 
-    [
-        check('descripcion', 'La descripcion es obligatoria').not().isEmpty(),
-        validarCampos
-    ],validarJwt,
+    '/buscarProducto',validarJwt,
     buscarProducto);
 
 router.post(
