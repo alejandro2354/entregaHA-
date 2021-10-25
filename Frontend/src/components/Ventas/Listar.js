@@ -3,8 +3,27 @@ import PureModal from 'react-pure-modal';
 import 'react-pure-modal/dist/react-pure-modal.min.css';
 import './Listar.css'
 
-const Tabla_Ventas = () => {
+const Tabla_Ventas = ({ventas}) => {
     const [modal, setModal] = useState(false);
+
+    const listar_ventas = ventas.map((venta) => (
+        <tr key={venta.id}>
+            <td>{venta.id}</td>
+            <td>{venta.producto.id}</td>
+            <td>{venta.producto.descripcion}</td>
+            <td>{venta.producto.valorUnit}</td>
+            <td>{venta.cantidad}</td>
+            <td>{venta.cedulaCliente}</td>
+            <td>{venta.nombreCliente}</td>
+            <td>{venta.idVendedor.name}</td>
+            <td>{venta.fechaDeVenta}</td>
+            <td>{venta.valorTotal}</td>
+            <td>{venta.estado.name}</td>
+            <td> <input type="button" value="Editar" className="fields" onClick={() => setModal(true)} /></td>
+        </tr>
+
+    ));
+
 
     return (
         <Fragment>
@@ -26,21 +45,7 @@ const Tabla_Ventas = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td> 1</td>
-                        <td> 1</td>
-                        <td> Azucar</td>
-                        <td> 1000</td>
-                        <td> 3</td>
-                        <td> 1016845748</td>
-                        <td> Hernesto</td>
-                        <td> 12345</td>
-                        <td> 10/20/1009</td>
-                        <td> 3000</td>
-                        <td> En proceso</td>
-                        <td> <input type="button" value="Editar" className="fields" onClick={() => setModal(true)} /></td>
-                    </tr>
-
+                    {ventas.length > 0 ? listar_ventas : <tr><td colSpan={9}>No hay ventas registradas</td></tr>}
                 </tbody>
             </table>
             <PureModal

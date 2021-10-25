@@ -27,7 +27,7 @@ padding: 10px
     padding: 5px;
 }
 
-.form-group span{
+.form-group label{
     font-size: 13px;
     width: 100%;
     text-align: left;
@@ -72,4 +72,9 @@ padding: 10px
 table img{
     width: 50px;
     border-radius: 100%;
+}
+.form-group input[type=number]::-webkit-inner-spin-button, 
+.form-group input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }

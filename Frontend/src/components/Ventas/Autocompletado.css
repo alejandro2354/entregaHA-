@@ -1,0 +1,14 @@
+.autocompletado li{
+    margin: 0;
+    padding: 0;
+    padding: 10px;
+    border: 1px solid #d4d4d4;
+    background-color: #fff;
+    border-top: none;
+    list-style: none;
+    position: absolute;
+}
+.autocompletado-results :hover {
+    cursor: pointer;
+    background-color: #bbbbbb;
+}

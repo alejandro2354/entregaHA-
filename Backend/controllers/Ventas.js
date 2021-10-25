@@ -1,113 +1,127 @@
-const { response } = require('express');
-const Ventas = require('../models/Ventas');
+const { response } = require("express");
+const Ventas = require("../models/Venta");
+const Producto = require("../models/Producto");
+const Estado = require("../models/Estado");
+const Usuario = require("../models/Usuario");
 
 const getVentas = async (req, resp = response) => {
-    const LVentas = await Ventas.find()
-        .populate('producto', 'descripcion')
-        .populate('id_vendedor', 'name')
-        .populate('Estado','name')
+    try {
+        const ventas = await Ventas.find()
+        .populate("producto")
+        .populate("idVendedor", "name")
+        .populate("estado", "name")
+        .sort({ id: 1 });
 
-    resp.status(200).json({
-        ok: true,
-        msg: 'Lista de Ventas',
-        LVentas
-    });
-}
+        resp.status(200).json({
+            ok: true,
+            msg: "Lista de Ventas",
+            ventas,
+        });
+        
+    } catch (error) {
+        console.log(error);
+    }
+};
 
-const BuscarVenta = async (req, resp = response) => {
-
+const buscarVenta = async (req, resp = response) => {
     const VentId = req.body.id;
 
     try {
-        const Venta = await Ventas.findOne({ 'id': VentId })
+        const Venta = await Ventas.findOne({ id: VentId });
 
         if (!Venta) {
             resp.status(404).json({
                 ok: false,
-                msg: 'la venta con el id especificado no existe',
-
+                msg: "la venta con el id especificado no existe",
             });
         } else {
             resp.status(202).json({
                 ok: true,
-                msg: 'Lista de Ventas',
-                Venta
+                msg: "Lista de Ventas",
+                Venta,
             });
-
         }
-
     } catch (error) {
         console.log(error);
         resp.status(500).json({
             ok: false,
-            msg: 'error al Buscar Venta'
+            msg: "error al Buscar Venta",
         });
     }
-}
+};
 
 const crearVenta = async (req, resp = response) => {
-
-    const Venta = new Ventas(req.body);
-
-    console.log(Venta);
-    console.log(req.body);
-
     try {
-        const SaleSave = await Venta.save();
+        let contador = 1;
+        const ventas = await Ventas.find().sort({ id: 1 });
+        ventas.forEach((venta) => {
+            if (venta.id === contador) {
+                contador++;
+            }
+        });
+        const newVenta = {
+            id: contador,
+            cedulaCliente : req.body.cedulaCliente,
+            nombreCliente : req.body.nombreCliente,
+            producto : req.body.producto,
+            cantidad : req.body.cantidad,
+            valorTotal : req.body.valorTotal,
+            idVendedor: req.body.idVendedor
+        }
+        const venta = new Ventas(newVenta);
+        const ventaSave = await venta.save();
         resp.status(201).json({
             ok: true,
-            msg: 'Venta creada con exito',
-            SaleSave
+            msg: "Venta creada con exito",
+            ventaSave,
         });
+
+        
     } catch (error) {
         console.log(error);
         resp.status(500).json({
             ok: false,
-            msg: 'Error al crear Venta'
+            msg: "Error al crear Venta",
         });
     }
+};
 
-}
-
-const ActualizarVenta = async (req, resp = response) => {
-
+const actualizarVenta = async (req, resp = response) => {
     const VentId = req.body.id;
 
     console.log(Ventas);
     console.log(req.body);
 
-
     try {
-        const Venta = await Ventas.findOne({ 'id': VentId });
+        const Venta = await Ventas.findOne({ id: VentId });
 
         if (!Venta) {
-            crearVenta(req, resp)
+            crearVenta(req, resp);
         } else {
-            const VentaGuardada = await Ventas.findByIdAndUpdate(Venta._id, req.body, { new: true });
+            const VentaGuardada = await Ventas.findByIdAndUpdate(
+                Venta._id,
+                req.body,
+                { new: true }
+            );
 
             resp.json({
                 ok: true,
-                msg: 'Venta actualizada exitosamente',
-                usuario: VentaGuardada
+                msg: "Venta actualizada exitosamente",
+                usuario: VentaGuardada,
             });
         }
     } catch (error) {
         console.log(error);
         resp.status(500).json({
             ok: false,
-            msg: 'error al actualizar Venta'
+            msg: "error al actualizar Venta",
         });
     }
-}
+};
 
 module.exports = {
     getVentas,
     crearVenta,
-    ActualizarVenta,
-    BuscarVenta,
-}
-
-
-
-
-
+    actualizarVenta,
+    buscarVenta,
+};
