@@ -2,8 +2,7 @@ import axios from "axios";
 import React, { useState, Fragment, useEffect } from "react";
 import useAuth from "../auth/useAuth";
 import "./Productos.css";
-import notie from "notie"
-
+import notie from "notie";
 
 function Productos() {
     const auth = useAuth();
@@ -32,11 +31,11 @@ function Productos() {
     };
 
     useEffect(() => {
-        listarProductos()
-    });
+        listarProductos();
+    }, []);
 
     const cargarProducto = async (e) => {
-        let getProducto
+        let getProducto;
         e.preventDefault();
         try {
             const { status, data } = await axios({
@@ -47,28 +46,33 @@ function Productos() {
                 },
                 data: {
                     NombreOID: `${nameOrId}`,
-                }
-            })
+                },
+            });
             if (status === 202) {
-                getProducto = data.producto
+                getProducto = data.producto;
+                setInID(getProducto.id);
+                setInDescription(getProducto.descripcion);
+                setInUnitValue(getProducto.valorUnit);
+                document.getElementById("selectEstado").value =
+                    getProducto.estado;
+                setEstadoValue(getProducto.estado);
             }
         } catch (error) {
             if (error.response.status === 404) {
-                notie.alert({ text: error.response.data.msg, type: "warning", time: 8 })
-            }
-            else {
-                notie.alert({ text: error.response.data.msg, type: "error", time: 8 })
+                notie.alert({
+                    text: error.response.data.msg,
+                    type: "warning",
+                    time: 8,
+                });
+            } else {
+                notie.alert({
+                    text: error.response.data.msg,
+                    type: "error",
+                    time: 8,
+                });
             }
         }
-        if (getProducto != null) {
-
-            setInID(getProducto.id)
-            setInDescription(getProducto.descripcion)
-            setInUnitValue(getProducto.valorUnit)
-            document.getElementById("selectEstado").value = getProducto.estado
-            setEstadoValue(getProducto.estado)
-        }
-    }
+    };
 
     const disbl = (inDescription, inUnitValue) => {
         if (inDescription !== "") {
@@ -86,40 +90,55 @@ function Productos() {
                 method: "POST",
                 url: `http://localhost:4000/api/productos/actualizarProducto`,
                 headers: {
-                    "x-token": `${auth.token}`
+                    "x-token": `${auth.token}`,
                 },
                 data: {
                     id: `${inID}`,
                     descripcion: `${inDescription}`,
                     valorUnit: parseInt(inUnitValue),
-                    estado: `${estadoValue}`
-                }
-
-            })
-            if (status === 201) {
-                notie.alert({ text: data.msg, type: "success" })
-                if (inID !== ""){                 
-                }
+                    estado: `${estadoValue}`,
+                },
+            });
+            if (status === 201 || status === 200) {
+                notie.alert({ text: data.msg, type: "success" });
+                listarProductos();
             }
         } catch (error) {
-            if (error.response.status === 400) {
-                notie.alert({ text: "No ha sido posible guardar el producto", type: "warning", time: 8 })
-            }else{
+            if (
+                error.response.status === 400 &&
+                !error.response.data.middleware
+            ) {
+                notie.alert({
+                    text: error.response.data.msg,
+                    type: "warning",
+                    time: 8,
+                });
+            } else if (
+                error.response.status === 400 &&
+                error.response.data.middleware
+            ) {
+                const { valorUnit } = error.response.data.errors;
+                notie.alert({
+                    text: valorUnit.msg,
+                    type: "warning",
+                    time: 8,
+                });
+            } else {
                 console.log(error);
             }
         }
-        setInID("")
-        setInDescription("")
-        setInUnitValue("")
-    }
+        setInID("");
+        setInDescription("");
+        setInUnitValue("");
+    };
 
     const borrarInputs = async (e) => {
         e.preventDefault();
-        setNameOrId("")
-        setInID("")
-        setInDescription("")
-        setInUnitValue("")
-    }
+        setNameOrId("");
+        setInID("");
+        setInDescription("");
+        setInUnitValue("");
+    };
 
     const list = productos.map((item) => (
         <tr key={item.id}>
@@ -130,10 +149,7 @@ function Productos() {
         </tr>
     ));
 
-    const vacio = (
-        <tr>
-        </tr>
-    );
+    const vacio = <tr></tr>;
 
     return (
         <Fragment>
@@ -149,10 +165,12 @@ function Productos() {
                             value={nameOrId}
                             onChange={(e) => setNameOrId(e.target.value)}
                         />
-                        <button id="Boton" onClick={cargarProducto}>Buscar</button>
+                        <button id="Boton" onClick={cargarProducto}>
+                            Buscar
+                        </button>
                     </div>
                 </form>
-                <form >
+                <form>
                     <div id="NuevoProducto">
                         <input
                             type="number"
@@ -178,17 +196,14 @@ function Productos() {
                             value={inUnitValue}
                             onChange={(e) => setInUnitValue(e.target.value)}
                         />
-                        <select className="EstadoP" id="selectEstado" defaultValue={estadoValue} onChange={(e) => setEstadoValue(e.target.value)}>
-                            <option value = {true}
-                            >
-                                {" "}
-                                Disponible{" "}
-                            </option>
-                            <option value = {false}
-                            >
-                                {" "}
-                                No Disponible{" "}
-                            </option>
+                        <select
+                            className="EstadoP"
+                            id="selectEstado"
+                            defaultValue={estadoValue}
+                            onChange={(e) => setEstadoValue(e.target.value)}
+                        >
+                            <option value={true}> Disponible </option>
+                            <option value={false}> No Disponible </option>
                         </select>
                         <button
                             id="Boton"
@@ -201,10 +216,7 @@ function Productos() {
                         >
                             Guardar producto
                         </button>
-                        <button
-                            id="Boton"
-                            onClick={borrarInputs}
-                        >
+                        <button id="Boton" onClick={borrarInputs}>
                             Limpiar
                         </button>
                     </div>
@@ -219,9 +231,7 @@ function Productos() {
                         <th> Estado </th>
                     </tr>
                 </thead>
-                <tbody>
-                    {productos.length ? list : vacio}
-                </tbody>
+                <tbody>{productos.length ? list : vacio}</tbody>
             </table>
         </Fragment>
     );

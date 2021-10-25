@@ -3,11 +3,13 @@ const { Schema, model } = require('mongoose')
 const ProductoSchema = Schema({
     id: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     descripcion: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     valorUnit: {
         type: Number,
