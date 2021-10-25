@@ -51,6 +51,8 @@ const buscarVenta = async (req, resp = response) => {
 };
 
 const crearVenta = async (req, resp = response) => {
+    let fecha = new Date();
+    fecha = fecha.toISOString().slice(0, 10);
     try {
         let contador = 1;
         const ventas = await Ventas.find().sort({ id: 1 });
@@ -66,7 +68,8 @@ const crearVenta = async (req, resp = response) => {
             producto : req.body.producto,
             cantidad : req.body.cantidad,
             valorTotal : req.body.valorTotal,
-            idVendedor: req.body.idVendedor
+            idVendedor: req.body.idVendedor,
+            fechaDeVenta: fecha,
         }
         const venta = new Ventas(newVenta);
         const ventaSave = await venta.save();

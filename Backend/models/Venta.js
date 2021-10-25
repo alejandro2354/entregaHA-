@@ -30,8 +30,7 @@ const VentaSchema = Schema(
             required: true,
         },
         fechaDeVenta: {
-            type: Date,
-            default: Date.now,
+            type: String,
             required: true
         },
         valorTotal: {
