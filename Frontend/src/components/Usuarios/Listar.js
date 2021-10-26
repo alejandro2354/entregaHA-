@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import useAuth from '../../auth/useAuth';
 import { listarUsuarios, actualizarUsuarios, obtenerRoles, obtenerEstados } from '../../services/Usuarios.service';
@@ -15,7 +16,6 @@ const Tabla_Usuarios = () => {
     const getRoles = async () => {
         try {
             const { data } = await obtenerRoles(auth.token);
-            console.log(data)
             setRoles(data.roles);
         } catch (error) {
 
@@ -25,7 +25,6 @@ const Tabla_Usuarios = () => {
     const getEstados = async () => {
         try {
             const { data } = await obtenerEstados(auth.token);
-            console.log(data)
             setEstados(data.estados);
         } catch (error) {
 
@@ -37,7 +36,6 @@ const Tabla_Usuarios = () => {
         getEstados();
         try {
             const { data } = await listarUsuarios(auth.token);
-            console.log(data)
             setUsuarios(data.users);
 
         } catch ({ response: error }) {

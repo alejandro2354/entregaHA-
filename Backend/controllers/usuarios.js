@@ -39,9 +39,6 @@ const updateUsers = async (req, res = response) => {
     const userId = req.params.id;
     try {
         const user = await Users.findById(userId);
-        console.log(user);
-        console.log(req.body);
-
         if (!user) {
             res.status(404).json({
                 ok: false,
