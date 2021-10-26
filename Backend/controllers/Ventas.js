@@ -52,7 +52,7 @@ const buscarVenta = async (req, resp = response) => {
 
 const crearVenta = async (req, resp = response) => {
     let fecha = new Date();
-    fecha = fecha.toISOString().slice(0, 10);
+    let fechaActual = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getDate();
     try {
         let contador = 1;
         const ventas = await Ventas.find().sort({ id: 1 });
@@ -69,7 +69,7 @@ const crearVenta = async (req, resp = response) => {
             cantidad : req.body.cantidad,
             valorTotal : req.body.valorTotal,
             idVendedor: req.body.idVendedor,
-            fechaDeVenta: fecha,
+            fechaDeVenta: fechaActual,
         }
         const venta = new Ventas(newVenta);
         const ventaSave = await venta.save();

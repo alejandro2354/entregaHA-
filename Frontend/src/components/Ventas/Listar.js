@@ -21,9 +21,7 @@ const Tabla_Ventas = ({ventas}) => {
             <td>{venta.estado.name}</td>
             <td> <input type="button" value="Editar" className="fields" onClick={() => setModal(true)} /></td>
         </tr>
-
     ));
-
 
     return (
         <Fragment>
