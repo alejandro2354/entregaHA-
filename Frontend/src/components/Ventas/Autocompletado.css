@@ -1,4 +1,8 @@
-.autocompletado li{
+.container-lista ul {
+    position: absolute;
+}
+
+.container-lista li{
     margin: 0;
     padding: 0;
     padding: 10px;
@@ -6,7 +10,6 @@
     background-color: #fff;
     border-top: none;
     list-style: none;
-    position: absolute;
 }
 .autocompletado-results :hover {
     cursor: pointer;

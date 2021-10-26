@@ -9,8 +9,8 @@ const modalData = [];
 
 const Tabla_Ventas = ({ ventas }) => {
     const [modal, setModal] = useState(false);
-
     const [estados, setEstados] = useState([]);
+    const [ventaTotal, setVentaTotal] = useState(null)
     const auth = useAuth();
 
     const getEstados = async () => {
@@ -83,7 +83,7 @@ const Tabla_Ventas = ({ ventas }) => {
 
             <PureModal
                 width="50vw"
-                header="Actualizar producto"
+                header="Actualizar venta"
                 footer={
                     <div className="form-group">
                         <button id="button_create" className="button"> Actualizar </button>
@@ -101,19 +101,23 @@ const Tabla_Ventas = ({ ventas }) => {
                 <form>
                     <div className="form-group">
                         <span> Id del producto </span>
-                        <input type="number" name="id_producto" className="fields" defaultValue={modalData[1]} onChange={(e) => { }}></input>
+                        <input disabled={true} type="number" name="id_producto" className="fields" defaultValue={modalData[1]} onChange={(e) => { }}></input>
                     </div>
                     <div className="form-group">
                         <span> Nombre del producto </span>
-                        <input type="text" name="id_producto" className="fields" defaultValue={modalData[2]} onChange={(e) => { }}></input>
+                        <input disabled={true} type="text" name="id_producto" className="fields" defaultValue={modalData[2]} onChange={(e) => { }}></input>
                     </div>
                     <div className="form-group">
                         <span> Precio unitario </span>
-                        <input type="number" name="precio_producto" className="fields" defaultValue={modalData[3]} onChange={(e) => { }}></input>
+                        <input disabled={true} type="number" name="precio_producto" className="fields" defaultValue={modalData[3]} onChange={(e) => { }}></input>
                     </div>
                     <div className="form-group">
                         <span> Cantidad del producto </span>
-                        <input type="number" name="cantidad_producto" className="fields" defaultValue={modalData[4]} onChange={(e) => { }}></input>
+                        <input type="number" name="cantidad_producto" className="fields" defaultValue={modalData[4]} onChange={(e) => setVentaTotal(e.target.value * modalData[3])}></input>
+                    </div>
+                    <div className="form-group">
+                        <span> Valor de la venta </span>
+                        <input disabled={true} type="number" name="valor_venta" className="fields" value={ventaTotal === null ? modalData[3]*modalData[4] :  ventaTotal } onChange={(e) => { }}></input>
                     </div>
                     <div className="form-group">
                         <span> Cedula de cliente </span>
@@ -125,15 +129,13 @@ const Tabla_Ventas = ({ ventas }) => {
                     </div>
                     <div className="form-group">
                         <span> Id de vendedor </span>
-                        <input type="text" name="id_vendedor" className="fields" defaultValue={modalData[7]} onChange={(e) => { }}></input>
+                        <input disabled={true} type="text" name="id_vendedor" className="fields" defaultValue={modalData[7]} onChange={(e) => { }}></input>
                     </div>
                     <div className="form-group">
-                        {console.log(modalData[8])}
                         <span> Fecha de venta </span>
                         <input type="date" name="fecha_producto" className="fields" defaultValue={modalData[8]} onChange={(e) => { }}></input>
                     </div>
                     <div className="form-group">
-                        {console.log(modalData[10])}
                         <span> Estado </span>
                         <select name="estado_producto" className="fields" defaultValue={modalData[10]}>
                             {
