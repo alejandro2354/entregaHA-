@@ -45,17 +45,11 @@ router.post(
     "/actualizarVenta",
     [
         check("id", "el codigo de venta es obligatorio").not().isEmpty(),
-        check("producto", "el nombre del producto es obligatorio")
-            .not()
-            .isEmpty(),
         check("cantidad", "la cantidad es obligatoria").not().isEmpty(),
         check("cedulaCliente", "la cedula del cliente es obligatoria")
             .not()
             .isEmpty(),
         check("nombreCliente", "el nombre del cliente es obligatorio")
-            .not()
-            .isEmpty(),
-        check("idVendedor", "el id del vendedor es obligatorio")
             .not()
             .isEmpty(),
         check("fechaDeVenta", "la fecha de venta es obligatoria")

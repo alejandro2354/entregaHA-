@@ -59,6 +59,22 @@ const obtenerEstados = (token) => {
     }
 }
 
+const actualizarVentas =  (token, data) => {
+    console.log("actualizarVentas")
+    try {
+        return axios({
+            method: "POST",
+            url: "http://localhost:4000/api/ventas/actualizarVenta",
+            headers: {
+                "x-token": `${token}`,
+            },
+            data : data
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
 
 
-export { listarVentas, crearVenta, listarProductos, obtenerEstados };
+
+export { listarVentas, crearVenta, listarProductos, obtenerEstados, actualizarVentas };

@@ -71,7 +71,7 @@ function Ventas() {
                     type: "success",
                     text: data.msg,
                     time: 8,
-                });
+                })
                 getVentas();
             }else{
                 console.log(data);

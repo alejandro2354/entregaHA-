@@ -2,15 +2,21 @@ import React, { Fragment, useEffect, useState } from "react";
 import PureModal from 'react-pure-modal';
 import 'react-pure-modal/dist/react-pure-modal.min.css';
 import './Listar.css'
-import { obtenerEstados } from "../../services/Ventas.service";
+import { obtenerEstados, actualizarVentas } from "../../services/Ventas.service";
 import useAuth from "../../auth/useAuth";
+import notie from "notie";
 
 const modalData = [];
 
-const Tabla_Ventas = ({ ventas }) => {
+const Tabla_Ventas = ({ ventas } ) => {
     const [modal, setModal] = useState(false);
     const [estados, setEstados] = useState([]);
     const [ventaTotal, setVentaTotal] = useState(null)
+    const [cantidadProducto, setCantidadProducto] = useState(0)
+    const [cedulaCliente, setCedulaCliente] = useState(0)
+    const [nombreCliente, setNombreCliente] = useState("")
+    const [fechaVenta, setFechaVenta] = useState("0000/00/00")
+    const [estadosVenta, setEstadosVenta] = useState("")
     const auth = useAuth();
 
     const getEstados = async () => {
@@ -20,6 +26,19 @@ const Tabla_Ventas = ({ ventas }) => {
             setEstados(data.estados);
         } catch (error) {
 
+        }
+    }
+
+    const updateVentas = async (dataS) => {
+        console.log("updateVentas")
+        try {
+            const { status, data } = await actualizarVentas(auth.token,dataS);
+            if (status === 200) {
+                notie.alert({ text: data.msg, type: "success"});
+                setModal(false);
+            }
+        } catch ({ response: error }) {
+            console.log(error);
         }
     }
 
@@ -49,6 +68,14 @@ const Tabla_Ventas = ({ ventas }) => {
                 modalData[8] = venta.fechaDeVenta.slice(0, 10);
                 modalData[9] = venta.valorTotal;
                 modalData[10] = venta.estado._id;
+
+                setCantidadProducto(modalData[4]);
+                setCedulaCliente(modalData[5]);
+                setNombreCliente(modalData[6]);
+                setFechaVenta(modalData[8]);
+                setVentaTotal(modalData[9]);
+                setEstadosVenta(modalData[10]);
+
             }} /></td>
         </tr>
     ));
@@ -86,7 +113,18 @@ const Tabla_Ventas = ({ ventas }) => {
                 header="Actualizar venta"
                 footer={
                     <div className="form-group">
-                        <button id="button_create" className="button"> Actualizar </button>
+                        <button id="button_create" className="button" onClick={(e) => {
+                            let data = {
+                                "id": modalData[0],
+                                "cantidad": cantidadProducto,
+                                "cedulaCliente": cedulaCliente,
+                                "nombreCliente": nombreCliente,
+                                "fechaDeVenta": fechaVenta,
+                                "valorTotal": ventaTotal,
+                                "estado": estadosVenta
+                            };
+                            updateVentas(data)
+                        }}> Actualizar </button>
                     </div>
                 }
                 isOpen={modal}
@@ -113,19 +151,19 @@ const Tabla_Ventas = ({ ventas }) => {
                     </div>
                     <div className="form-group">
                         <span> Cantidad del producto </span>
-                        <input type="number" name="cantidad_producto" className="fields" defaultValue={modalData[4]} onChange={(e) => setVentaTotal(e.target.value * modalData[3])}></input>
+                        <input type="number" name="cantidad_producto" className="fields" defaultValue={modalData[4]} onChange={(e) => {setVentaTotal(e.target.value * modalData[3]); setCantidadProducto(e.target.value)}}></input>
                     </div>
                     <div className="form-group">
                         <span> Valor de la venta </span>
-                        <input disabled={true} type="number" name="valor_venta" className="fields" value={ventaTotal === null ? modalData[3]*modalData[4] :  ventaTotal } onChange={(e) => { }}></input>
+                        <input disabled={true} type="number" name="valor_venta" className="fields" value={ventaTotal === null ? modalData[3] * modalData[4] : ventaTotal} onChange={(e) => { }}></input>
                     </div>
                     <div className="form-group">
                         <span> Cedula de cliente </span>
-                        <input type="number" name="cedula_producto" className="fields" defaultValue={modalData[5]} onChange={(e) => { }}></input>
+                        <input type="number" name="cedula_producto" className="fields" defaultValue={modalData[5]} onChange={(e) => { setCedulaCliente(e.target.value) }}></input>
                     </div>
                     <div className="form-group">
                         <span> Nombre de cliente </span>
-                        <input type="text" name="nombre_producto" className="fields" defaultValue={modalData[6]} onChange={(e) => { }}></input>
+                        <input type="text" name="nombre_producto" className="fields" defaultValue={modalData[6]} onChange={(e) => { setNombreCliente(e.target.value) }}></input>
                     </div>
                     <div className="form-group">
                         <span> Id de vendedor </span>
@@ -133,18 +171,18 @@ const Tabla_Ventas = ({ ventas }) => {
                     </div>
                     <div className="form-group">
                         <span> Fecha de venta </span>
-                        <input type="date" name="fecha_producto" className="fields" defaultValue={modalData[8]} onChange={(e) => { }}></input>
+                        <input type="date" name="fecha_producto" className="fields" defaultValue={modalData[8]} onChange={(e) => setFechaVenta(e.target.value)}></input>
                     </div>
                     <div className="form-group">
                         <span> Estado </span>
-                        <select name="estado_producto" className="fields" defaultValue={modalData[10]}>
+                        <select name="estado_producto" className="fields" defaultValue={modalData[10]} onChange={(e) => setEstadosVenta(e.target.value)}>
                             {
                                 estados.map((estado) => (
                                     <option value={estado._id} key={estado._id}> {estado.name} </option>
                                 ))
                             }
                         </select>
-                   </div>
+                    </div>
 
                 </form>
             </PureModal>
