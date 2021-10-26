@@ -1,0 +1,9 @@
+.modal-btn{
+    padding: 5px;
+}
+
+
+form{
+    display: flex;
+    flex-wrap: wrap;
+}

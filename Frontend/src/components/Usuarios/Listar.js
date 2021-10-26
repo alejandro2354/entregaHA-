@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import useAuth from '../../auth/useAuth';
-import { listarUsuarios, actualizarUsuarios, obtenerRoles } from '../../services/Usuarios.service';
+import { listarUsuarios, actualizarUsuarios, obtenerRoles, obtenerEstados } from '../../services/Usuarios.service';
 import notie from 'notie';
 
 const Tabla_Usuarios = () => {
@@ -10,12 +11,21 @@ const Tabla_Usuarios = () => {
     const [usuarios, setUsuarios] = useState([]);
 
     const [roles, setRoles] = useState([]);
+    const [estados, setEstados] = useState([])
 
     const getRoles = async () => {
         try {
             const { data } = await obtenerRoles(auth.token);
-            console.log(data)
             setRoles(data.roles);
+        } catch (error) {
+
+        }
+    }
+
+    const getEstados = async () => {
+        try {
+            const { data } = await obtenerEstados(auth.token);
+            setEstados(data.estados);
         } catch (error) {
 
         }
@@ -23,9 +33,9 @@ const Tabla_Usuarios = () => {
 
     const getUsuarios = async () => {
         getRoles();
+        getEstados();
         try {
             const { data } = await listarUsuarios(auth.token);
-            console.log(data)
             setUsuarios(data.users);
 
         } catch ({ response: error }) {
@@ -43,10 +53,9 @@ const Tabla_Usuarios = () => {
 
     }
 
-    const updateUsuarios = async (id, rol) => {
+    const updateUsuarios = async (id, rol, statuss) => {
         try {
-            const { status, data } = await actualizarUsuarios(auth.token, id, rol);
-            console.log(data);
+            const { status, data } = await actualizarUsuarios(auth.token, id, rol, statuss);
             if (status === 200) {
                 notie.alert({ text: data.msg, type: "success" })
             }
@@ -59,8 +68,10 @@ const Tabla_Usuarios = () => {
         getUsuarios();
     }, []);
 
-    const pruebas = []
-
+    const rolesUpdate = [];
+    const estadosUpdate = [];
+    usuarios.map((usuario,index) => rolesUpdate[index] = usuario.rol._id);
+    usuarios.map((usuario,index) => estadosUpdate[index] = usuario.status);
     return (
         <table id="search_table">
             <thead>
@@ -69,7 +80,7 @@ const Tabla_Usuarios = () => {
                     <th> Nombre del usuario </th>
                     <th> Correo </th>
                     <th> Rol </th>
-                    {/* <th> Estado </th> */}
+                    <th> Estado </th>
                     <th> Accion </th>
                 </tr>
             </thead>
@@ -83,7 +94,7 @@ const Tabla_Usuarios = () => {
                             <td> {usuario.email}</td>
                             <td>
 
-                                <select className="lists" defaultValue={usuario.rol._id} id={usuario._id} onChange={(e) => { const selected = e.target.value; pruebas[index] = selected }}>
+                                <select className="lists" defaultValue={usuario.rol._id} onChange={(e) => { const selected = e.target.value; rolesUpdate[index] = selected }}>
                                     {
                                         roles.map((rol) => (
                                             <option value={rol._id} key={rol._id}> {rol.name} </option>
@@ -91,8 +102,16 @@ const Tabla_Usuarios = () => {
                                     }
                                 </select>
                             </td>
-                            {/* <td> {Estado_Usuarios()} </td> */}
-                            <td> <button className="button" onClick={(event) => updateUsuarios(usuario._id, pruebas[index])}> Actualizar </button> </td>
+                            <td>
+                                <select className="lists" defaultValue={usuario.status} onChange={(e) => { const selected = e.target.value; estadosUpdate[index] = selected }} >
+                                    {
+                                        estados.map((estado) => (
+                                            <option value={estado._id} key={estado._id}> {estado.name} </option>
+                                        ))
+                                    }
+                                </select>
+                            </td>
+                            <td> <button className="button" onClick={(event) =>  updateUsuarios(usuario._id, rolesUpdate[index], estadosUpdate[index])}> Actualizar </button> </td>
                         </tr>
                     )
                     )
@@ -101,16 +120,6 @@ const Tabla_Usuarios = () => {
             </tbody>
         </table>
     );
-}
-
-const Estado_Usuarios = () => {
-    return (
-        <select className="lists">
-            <option value="Pendiente"> Pendiente </option>
-            <option value="Autorizado"> Autorizado </option>
-            <option value="No_Autorizado"> No autorizado </option>
-        </select>
-    )
 }
 
 export default Tabla_Usuarios;

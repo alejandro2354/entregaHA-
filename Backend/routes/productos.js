@@ -9,19 +9,14 @@ const { validarJwt } = require('../middlewares/validar-jwt');
 router.get('/listarProductos', validarJwt, getProductos)
 
 router.post(
-    '/buscarProducto', 
-    [
-        check('id', 'El nombre del producto es obligatorio').not().isEmpty(),
-        validarCampos
-    ],validarJwt,
+    '/buscarProducto',validarJwt,
     buscarProducto);
 
 router.post(
     '/crearProducto', 
     [
-        check('id', 'El nombre del producto es obligatorio').not().isEmpty(),
-        check('descripcion', 'El codigo de barras del producto es obligatorio').not().isEmpty(),
-        check('valorUnit', 'La categoria del producto es obligatoria').not().isEmpty(),
+        check('descripcion', 'La descripcion es obligatoria').not().isEmpty(),
+        check('valorUnit', 'La valor unitario es obligatorio').not().isEmpty(),
         check('estado', 'El estado del producto es obligatorio').not().isEmpty(),
         validarCampos
     ], validarJwt,
@@ -30,9 +25,8 @@ router.post(
 router.post(
     '/actualizarProducto', 
     [
-        check('id', 'El nombre del producto es obligatorio').not().isEmpty(),
-        check('descripcion', 'El codigo de barras del producto es obligatorio').not().isEmpty(),
-        check('valorUnit', 'La categoria del producto es obligatoria').not().isEmpty(),
+        check('descripcion', 'La descripcion es obligatoria').not().isEmpty(),
+        check('valorUnit', 'La valor unitario es obligatorio').not().isEmpty(),
         check('estado', 'El estado del producto es obligatorio').not().isEmpty(),
         validarCampos
     ], validarJwt,
