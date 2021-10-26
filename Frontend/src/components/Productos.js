@@ -6,7 +6,7 @@ import notie from "notie";
 
 
 function Productos() {
-    const baseURL = process.env.React_App_API_Url;
+    const baseURL = process.env.REACT_APP_API_URL;
     const auth = useAuth();
     const [nameOrId, setNameOrId] = useState("");
     const [productos, setProductos] = useState([]);
