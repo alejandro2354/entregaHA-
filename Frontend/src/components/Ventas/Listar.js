@@ -8,7 +8,7 @@ import notie from "notie";
 
 const modalData = [];
 
-const Tabla_Ventas = ({ ventas } ) => {
+const Tabla_Ventas = ({ ventas, getVentas } ) => {
     const [modal, setModal] = useState(false);
     const [estados, setEstados] = useState([]);
     const [ventaTotal, setVentaTotal] = useState(null)
@@ -22,23 +22,26 @@ const Tabla_Ventas = ({ ventas } ) => {
     const getEstados = async () => {
         try {
             const { data } = await obtenerEstados(auth.token);
-            console.log("Data", data)
             setEstados(data.estados);
         } catch (error) {
-
+            console.log(error);
         }
     }
 
     const updateVentas = async (dataS) => {
-        console.log("updateVentas")
         try {
             const { status, data } = await actualizarVentas(auth.token,dataS);
             if (status === 200) {
                 notie.alert({ text: data.msg, type: "success"});
                 setModal(false);
+                getVentas();
             }
         } catch ({ response: error }) {
-            console.log(error);
+            if (error.status === 400 && error.data.middleware) {
+                notie.alert({ text: "Rellena todos los campos", type: "error" });
+            }else{
+                console.log(error);
+            }
         }
     }
 
@@ -83,6 +86,7 @@ const Tabla_Ventas = ({ ventas } ) => {
     useEffect(() => {
         getEstados();
     }, []);
+
 
     return (
         <Fragment>

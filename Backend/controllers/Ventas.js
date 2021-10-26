@@ -15,7 +15,6 @@ const getEstados = async (req, res = response) => {
 
 const getVentas = async (req, resp = response) => {
     try {
-        console.log("llega aqui");
         const ventas = await Ventas.find()
         .populate("producto")
         .populate("idVendedor", "name")
@@ -101,10 +100,6 @@ const crearVenta = async (req, resp = response) => {
 
 const actualizarVenta = async (req, resp = response) => {
     const VentId = req.body.id;
-
-    console.log(Ventas);
-    console.log(req.body);
-
     try {
         const Venta = await Ventas.findOne({ id: VentId });
 

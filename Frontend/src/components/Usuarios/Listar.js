@@ -15,7 +15,6 @@ const Tabla_Usuarios = () => {
     const getRoles = async () => {
         try {
             const { data } = await obtenerRoles(auth.token);
-            console.log(data)
             setRoles(data.roles);
         } catch (error) {
 
@@ -25,7 +24,6 @@ const Tabla_Usuarios = () => {
     const getEstados = async () => {
         try {
             const { data } = await obtenerEstados(auth.token);
-            console.log(data)
             setEstados(data.estados);
         } catch (error) {
 
@@ -37,7 +35,6 @@ const Tabla_Usuarios = () => {
         getEstados();
         try {
             const { data } = await listarUsuarios(auth.token);
-            console.log(data)
             setUsuarios(data.users);
 
         } catch ({ response: error }) {

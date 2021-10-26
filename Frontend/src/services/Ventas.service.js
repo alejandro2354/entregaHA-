@@ -60,7 +60,6 @@ const obtenerEstados = (token) => {
 }
 
 const actualizarVentas =  (token, data) => {
-    console.log("actualizarVentas")
     try {
         return axios({
             method: "POST",

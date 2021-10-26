@@ -22,7 +22,6 @@ function Ventas() {
     const [buscarVenta, setBuscarVenta] = useState("");
 
     const getVentas = async () => {
-        console.log("Llega hasta aqui");
         try {
             const { data } = await listarVentas(auth.token);
             setVentas([...data.ventas]);
@@ -111,11 +110,10 @@ function Ventas() {
 
     useEffect(() => {
         handleBuscarVenta();
-    }, [buscarVenta]);
+    }, [buscarVenta, ventas]);
 
     const disbl = (nombreCliente, cedulaCliente, producto, cantidad ) => {
         if (nombreCliente !== "") {
-            console.log(nombreCliente);
             if (cedulaCliente !== null) {
                 if (producto !== null) {
                     if (cantidad !== null) {
@@ -251,7 +249,7 @@ function Ventas() {
                     </div>
                 </div>
             </div>
-            {ventas2.length > 0 ? <Listar ventas={ventas2}/> : (buscarVenta === null || buscarVenta === "") ? <Listar ventas={ventas}/> : <h2 style={styles.mensajeNoSeEncontro}>No existen ventas registradas con id, nombre o cedula: {buscarVenta} </h2>}
+            {ventas2.length > 0 ? <Listar ventas={ventas2} getVentas={() => getVentas()}/> : (buscarVenta === null || buscarVenta === "") ? <Listar ventas={ventas} getVentas={() =>getVentas()}/> : <h2 style={styles.mensajeNoSeEncontro}>No existen ventas registradas con id, nombre o cedula: {buscarVenta} </h2>}
         </Fragment>
     );
 }
