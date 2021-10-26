@@ -14,6 +14,7 @@ const listarVentas =  (token) => {
     }
 };
 
+
 const listarProductos = (token) => {
     try {
         return axios({
@@ -44,6 +45,20 @@ const crearVenta = (token, venta ) => {
     }
 };
 
+const obtenerEstados = (token) => {
+    try {
+        return axios({
+            method: 'GET',
+            url: 'http://localhost:4000/api/ventas/estados',
+            headers: {
+                'x-token': `${token}`
+            }
+        });
+    } catch (error) {
+        throw error.status;
+    }
+}
 
 
-export { listarVentas, crearVenta, listarProductos };
+
+export { listarVentas, crearVenta, listarProductos, obtenerEstados };

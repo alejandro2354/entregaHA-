@@ -16,6 +16,7 @@ function Ventas() {
 
 
     const getVentas = async () => {
+        console.log("Llega hasta aqui");
         try {
             const {data} = await listarVentas(auth.token);
             setVentas([...data.ventas]);
