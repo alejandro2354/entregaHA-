@@ -36,7 +36,6 @@ const validarUsuarioGoogle = async (req, resp = response) => {
             });
         }
     } catch (error) {
-        console.log("esta parte");
         console.log(error)
     }
 /*     resp.json({
