@@ -8,10 +8,13 @@ const {
     crearVenta,
     actualizarVenta,
     buscarVenta,
+    getEstados
 } = require("../controllers/ventas");
 const { validarJwt } = require("../middlewares/validar-jwt");
 
 router.get("/listarVentas", validarJwt, getVentas);
+
+router.get("/estados", validarJwt, getEstados);
 
 router.post("/buscarVenta", validarJwt, buscarVenta);
 

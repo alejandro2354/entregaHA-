@@ -4,8 +4,18 @@ const Producto = require("../models/Producto");
 const Estado = require("../models/Estado");
 const Usuario = require("../models/Usuario");
 
+const getEstados = async (req, res = response) => {
+    const estados = await Estado.find()
+    res.status(200).json({
+        ok: true,
+        msg: 'Lista de estados',
+        estados
+    });
+}
+
 const getVentas = async (req, resp = response) => {
     try {
+        console.log("llega aqui");
         const ventas = await Ventas.find()
         .populate("producto")
         .populate("idVendedor", "name")
@@ -127,4 +137,5 @@ module.exports = {
     crearVenta,
     actualizarVenta,
     buscarVenta,
+    getEstados
 };
