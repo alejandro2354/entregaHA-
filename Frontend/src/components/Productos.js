@@ -4,7 +4,9 @@ import useAuth from "../auth/useAuth";
 import "./Productos.css";
 import notie from "notie";
 
+
 function Productos() {
+    const baseURL = process.env.React_App_API_Url;
     const auth = useAuth();
     const [nameOrId, setNameOrId] = useState("");
     const [productos, setProductos] = useState([]);
@@ -18,7 +20,7 @@ function Productos() {
         try {
             const { data } = await axios({
                 method: "GET",
-                url: "http://localhost:4000/api/productos/listarProductos",
+                url: `${baseURL}/productos/listarProductos`,
                 headers: {
                     "x-token": `${auth.token}`,
                 },
@@ -40,7 +42,7 @@ function Productos() {
         try {
             const { status, data } = await axios({
                 method: "POST",
-                url: "http://localhost:4000/api/productos/buscarProducto",
+                url: `${baseURL}/productos/buscarProducto`,
                 headers: {
                     "x-token": `${auth.token}`,
                 },
@@ -88,7 +90,7 @@ function Productos() {
         try {
             const { status, data } = await axios({
                 method: "POST",
-                url: `http://localhost:4000/api/productos/actualizarProducto`,
+                url: `${baseURL}/productos/actualizarProducto`,
                 headers: {
                     "x-token": `${auth.token}`,
                 },

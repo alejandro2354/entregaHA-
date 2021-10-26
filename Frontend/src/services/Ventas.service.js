@@ -1,10 +1,12 @@
 import axios from "axios";
 
+const baseURL = process.env.React_App_API_Url;
+
 const listarVentas =  (token) => {
     try {
         return axios({
             method: "GET",
-            url: "http://localhost:4000/api/ventas/listarVentas",
+            url: `${baseURL}/ventas/listarVentas`,
             headers: {
                 "x-token": `${token}`,
             }
@@ -19,7 +21,7 @@ const listarProductos = (token) => {
     try {
         return axios({
             method: "GET",
-            url: "http://localhost:4000/api/productos/listarProductos",
+            url: `${baseURL}/productos/listarProductos`,
             headers: {
                 "x-token": `${token}`,
             }
@@ -33,7 +35,7 @@ const crearVenta = (token, venta ) => {
     try {
         return axios({
             method: "POST",
-            url: "http://localhost:4000/api/ventas/crearVenta",
+            url: `${baseURL}/ventas/crearVenta`,
             headers: {
                 "x-token": `${token}`,
             },data: {
@@ -49,7 +51,7 @@ const obtenerEstados = (token) => {
     try {
         return axios({
             method: 'GET',
-            url: 'http://localhost:4000/api/ventas/estados',
+            url: `${baseURL}/ventas/estados`,
             headers: {
                 'x-token': `${token}`
             }
@@ -63,7 +65,7 @@ const actualizarVentas =  (token, data) => {
     try {
         return axios({
             method: "POST",
-            url: "http://localhost:4000/api/ventas/actualizarVenta",
+            url: `${baseURL}/ventas/actualizarVenta`,
             headers: {
                 "x-token": `${token}`,
             },

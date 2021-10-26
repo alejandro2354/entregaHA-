@@ -1,9 +1,11 @@
 import axios from 'axios';
+const baseURL = process.env.React_App_API_Url;
+
 const listarUsuarios = (token) => {
     try {
         return axios({
             method: 'GET',
-            url: 'http://localhost:4000/api/usuarios/',
+            url: `${baseURL}/usuarios/`,
             headers: {
                 'x-token': `${token}`
             }
@@ -17,7 +19,7 @@ const obtenerRoles = (token) => {
     try {
         return axios({
             method: 'GET',
-            url: 'http://localhost:4000/api/usuarios/roles',
+            url: `${baseURL}/usuarios/roles`,
             headers: {
                 'x-token': `${token}`
             }
@@ -31,7 +33,7 @@ const obtenerEstados = (token) => {
     try {
         return axios({
             method: 'GET',
-            url: 'http://localhost:4000/api/usuarios/estados',
+            url: `${baseURL}/usuarios/estados`,
             headers: {
                 'x-token': `${token}`
             }
@@ -46,7 +48,7 @@ const actualizarUsuarios = (token, id, rol, status) => {
     try {
         return axios({
             method: 'PUT',
-            url: `http://localhost:4000/api/usuarios/${id}`,
+            url: `${baseURL}/usuarios/${id}`,
             headers: {
                 'x-token': `${token}`
             },

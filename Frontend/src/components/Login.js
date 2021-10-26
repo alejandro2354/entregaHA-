@@ -9,13 +9,14 @@ import useAuth from "../auth/useAuth";
 
 
 export const Login = () => {
+    const baseURL = process.env.React_App_API_Url;
     const auth = useAuth()
     const respuestaGoogle = async (resp) => {
         if(!resp.error){
             try {
                 const {status, data} = await axios({
                     method:"POST",
-                    url: `http://localhost:4000/api/auth/google/login`,
+                    url: `${baseURL}/auth/google/login`,
                     headers: {
                       "Authorization": `Bearer ${resp.tokenId}`
                     }
