@@ -12,18 +12,23 @@ function Navbar() {
     return (
         <Router>
             <nav>
-                <h2 id="nav-title"> NAVEGACION </h2>
+                <div className="nav-container-tittle">
+                    <h2 id="nav-title"> NAVEGACION </h2>
+                </div>
                 <div id="nav-items">
-                    <Link to="/Productos" className="nav-item">
-                        {" "}
-                        <i className="fas fa-shopping-cart"></i> Gestionar
-                        productos{" "}
-                    </Link>
+                    {auth.isLogged() && user.rol === "Administrador" && (
+                        <Link to="/Productos" className="nav-item">
+                            {" "}
+                            <i className="fas fa-shopping-cart"></i> Gestionar
+                            productos{" "}
+                        </Link>
+                    )}
+
                     <Link to="/Ventas" className="nav-item">
                         {" "}
                         <i className="fas fa-suitcase"></i> Gestionar ventas{" "}
                     </Link>
-                    {(auth.isLogged() && (user.rol === "Administrador")) && (
+                    {auth.isLogged() && user.rol === "Administrador" && (
                         <Link to="/Usuarios" className="nav-item">
                             {" "}
                             <i className="fas fa-user"></i> Gestionar usuarios{" "}
@@ -40,6 +45,9 @@ function Navbar() {
                 </Route>
                 <Route path="/Usuarios">
                     <Main component="3" />
+                </Route>
+                <Route path="/Index">
+                    <Main component="4" />
                 </Route>
             </Switch>
         </Router>

@@ -13,8 +13,10 @@ const UsuarioSchema = Schema({
     },
 
     status: {
-        type: String,
-        //required: true,
+        type: Schema.Types.ObjectId,
+        ref: "EstadoU",
+        default: "617207f5bc80150ac8f4a29f",
+        required: true,
     },
     picture: {
         type: String
@@ -22,7 +24,7 @@ const UsuarioSchema = Schema({
     rol: {
         type: Schema.Types.ObjectId,
         ref: "Rol",
-        default: "616b32ec68f3da2297d04ab8",
+        default: "616b32c568f3da2297d04ab7",
         required: true,
     }
 

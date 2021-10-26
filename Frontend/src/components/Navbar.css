@@ -12,10 +12,15 @@ nav {
     height: 90vh;
     width: 15%;
   }
-    
+  
   #nav-title {
     margin-top: 10px;
     font-size: 18px;
+  }
+
+  .nav-container-tittle{
+    padding: 10px;
+    border-bottom: 1px solid #fff;
   }
     
   nav #nav-items {

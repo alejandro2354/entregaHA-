@@ -1,0 +1,94 @@
+
+
+#section_title{
+    color: #004B7F;
+}
+
+#section_filter{
+    margin-top: 15px;
+    padding: 15px;
+
+    outline: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.fields {
+padding: 10px
+}
+.container-form-group{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.form-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.form-group label{
+    font-size: 13px;
+    width: 100%;
+    text-align: left;
+}
+
+.button{
+    padding: 10px;
+    margin-left: 10px;
+    height: fit-content;
+}
+
+
+
+#search_table{
+    margin-top: 15px;
+    width: 100%;
+}
+
+#search_table th{
+    background-color: #C4C4C4;
+    padding: 10px;
+
+    font-size: 12px;
+}
+
+#search_table td{
+    padding: 15px;
+    text-align: center;
+
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.lists{
+    padding: 10px;
+    box-sizing: content-box;
+    text-indent: 5px;
+}
+
+
+table img{
+    width: 50px;
+    border-radius: 100%;
+}
+.container-form-search{
+    display: flex;
+}
+#Buscar_venta{
+    width: 23.5rem;
+}
+.form-group-button{
+    margin-top: 20px;
+}
+
+.form-group input[type=number]::-webkit-inner-spin-button, 
+.form-group input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

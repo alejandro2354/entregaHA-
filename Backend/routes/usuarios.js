@@ -1,5 +1,5 @@
 
-const {getUsers, updateUsers, getRoles} = require('../controllers/usuarios');
+const {getUsers, updateUsers, getRoles, getEstados} = require('../controllers/usuarios');
 const {Router} = require('express');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
@@ -12,9 +12,12 @@ router.get('/', validarJwt, getUsers);
 
 router.get('/roles', validarJwt, getRoles);
 
+router.get('/estados', validarJwt, getEstados);
+
 router.put('/:id',
 [
     check('rol', 'El campo es obligatorio').not().isEmpty(),
+    check('status', 'El campo es obligatorio').not().isEmpty(),
     validarCampos
 ],validarJwt, updateUsers)
 

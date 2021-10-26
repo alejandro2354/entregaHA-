@@ -1,0 +1,51 @@
+/* .container {
+} */
+.container-titulo {
+    text-align: center;
+}
+.container-span-bienvenido {
+    font-size: 3rem;
+}
+.container-span-nombre {
+    color: #004b7f;
+    font-size: 4rem;
+}
+.container-imagenes {
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+.imagen-logo {
+    height: 250px;
+}
+.container-otrasImagen{
+    margin-top: 6rem;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    /* border: 1px solid black; */
+}
+.container-otrasImagen img{
+    display: block;
+    height: 125px;
+}
+.container-ganancias {
+    display: flex;
+}
+.container-ganancias div {
+    margin-top: 2rem;
+    margin-left: 3rem;
+    padding: 20px;
+    border: 5px solid black;
+    border-radius: 1rem;
+}
+.container-ganancias-totales h1 {
+    color: #004b7f;
+}
+.container-ganancias-diarias h1 {
+    color: #004b7f;
+}
+
