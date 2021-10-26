@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Fragment, useState, useEffect } from "react";
 import useAuth from "../auth/useAuth";
 import "./Ventas.css";

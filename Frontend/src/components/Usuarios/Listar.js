@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import useAuth from '../../auth/useAuth';
 import { listarUsuarios, actualizarUsuarios, obtenerRoles, obtenerEstados } from '../../services/Usuarios.service';
