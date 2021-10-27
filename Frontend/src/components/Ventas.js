@@ -250,7 +250,7 @@ function Ventas() {
                     </div>
                 </div>
             </div>
-            {ventas2.length > 0 ? <Listar ventas={ventas2} getVentas={() => getVentas()}/> : (buscarVenta === null || buscarVenta === "") ? <Listar ventas={ventas} getVentas={() =>getVentas()}/> : <h2 style={styles.mensajeNoSeEncontro}>No existen ventas registradas con id, nombre o cedula: {buscarVenta} </h2>}
+            {ventas2.length > 0 ? <Listar productos={productos} ventas={ventas2} getVentas={() => getVentas()}/> : (buscarVenta === null || buscarVenta === "") ? <Listar  productos={productos} ventas={ventas} getVentas={() =>getVentas()}/> : <h2 style={styles.mensajeNoSeEncontro}>No existen ventas registradas con id, nombre o cedula: {buscarVenta} </h2>}
         </Fragment>
     );
 }
